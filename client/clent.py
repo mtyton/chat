@@ -31,9 +31,21 @@ def on_closing(event=None):
     send()
 
 
+def set_defaults():
+    """
+    Invoked when the user didn't pass one of the two required data
+    :return:
+    """
+    return 30300, "127.0.0.1"
+
+
 if __name__ == "__main__":
+    print("You don't have top write anything if you haven't change settings in server file")
     host = input("Give the server ip address to which u connect")
-    port = int(input("please give the port on which the app will work"))
+    port = input("please give the port on which the app will work")
+    if not host or not port:
+        port, host = set_defaults()
+    port = int(port)
     addr = (host, port)
     client_socket = socket(AF_INET, SOCK_STREAM)
     client_socket.connect(addr)
@@ -48,7 +60,6 @@ if __name__ == "__main__":
     msg_list = tkinter.Listbox(message_frame, height=15, width=60, yscrollcommand=scrollbar.set)
     scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
     msg_list.pack(side=tkinter.LEFT, fill=tkinter.BOTH)
-
 
 
     entry_field = tkinter.Entry(top, textvariable=msg)
