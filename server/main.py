@@ -17,12 +17,22 @@ SERVER.bind(ADDR)
 
 
 def send_history_to_client(client):
+    """
+    starts after client connected, simply sends history of chat to the client
+    history - messages since the server was started
+    :param client:
+    :return:
+    """
     for message in sended_messages:
         client.send(bytes(message.prefix+": ", "utf8") + message.text)
         time.sleep(0.05)
 
 
 def accept_connection():
+    """
+    Simply accepts connection from client
+    :return:
+    """
     while True:
         client, client_address = SERVER.accept()
         client.send(bytes("Welcome on chat, first send your username", "utf8"))
@@ -31,9 +41,14 @@ def accept_connection():
 
 
 def handle_client(client):
-    client.send(bytes("If you want to quit just write {quit}", "utf8"))
+    """
+    Receives message from exact client and broadcasts it
+    :param client:
+    :return:
+    """
     client_name = client.recv(BUFSIZE).decode("utf8")
-    print("{} joined the chat".format(client_name))
+    ip = client.getsockname()[0]
+    print("{}@{}".format(client_name, ip))
     clients[client] = client_name
     msg = "{} has joined the chat".format(client_name)
     send_history_to_client(client)
@@ -51,6 +66,12 @@ def handle_client(client):
 
 
 def broadcast(message, prefix=""):
+    """
+    Simply sends message to every client
+    :param message:
+    :param prefix:
+    :return:
+    """
     mess = Message(message, prefix)
     sended_messages.append(mess)
     for sock in clients:
