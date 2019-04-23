@@ -18,6 +18,6 @@ Simply go to the client directory and start it with command
 Programme will ask you to pass two data, ip and port, you don't have to do that if your server is running on a default settings.
 after showing up the window just send your username first
 
-##TODO:
+## TODO:
 - write some tests
 - add some kind of binary to launch it easier
