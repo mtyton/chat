@@ -1,6 +1,6 @@
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
-from Messages.msg import Message
+from msg import Message
 import time
 
 
@@ -30,7 +30,7 @@ def send_history_to_client(client):
 
 def accept_connection():
     """
-    Simply accepts connection from client
+    Simply accepts connection from clients
     :return:
     """
     while True:
